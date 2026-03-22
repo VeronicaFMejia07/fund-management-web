@@ -1,0 +1,17 @@
+@use 'sass:map';
+
+$breakpoints: (
+  'sm': 576px,  // Tablets pequeñas / Celulares grandes
+  'md': 768px,  // Tablets
+  'p-menu': 961px, // <--- Breakpoint de PrimeNG
+  'lg': 992px,  // Laptops / Tablets
+  'xl': 1200px  // Pantallas de escritorio grandes
+);
+
+@mixin responsive($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media (min-width: map.get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+@use "mixins" as m;
+
+.button-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  padding: 0.5rem;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  border: 1px solid var(--primary-color);
+
+  @include m.responsive('md') {
+    font-size: 1rem;
+  }
+
+  &:hover {
+    filter: brightness(0.9);
+    background-color: var(--primary-color);
+    transition: all 0.5s ease;
+    cursor: pointer;
+  }
+}
+

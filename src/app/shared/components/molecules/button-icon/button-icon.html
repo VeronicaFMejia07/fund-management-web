@@ -1,0 +1,10 @@
+<button
+  class="button-icon"
+  (click)="onClick.emit($event)">
+
+  @if(iconClass){
+    <app-atom-icon [iconClass]="iconClass" />
+  }
+
+  <app-atom-label [text]="label" />
+</button>

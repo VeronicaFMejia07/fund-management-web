@@ -1,0 +1,34 @@
+<p-table [value]="data" [columns]="columns" [(selection)]="selectedRow" dataKey="id">
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      @for (col of columns; track col.field) {
+        <th>
+          {{ col.header }}
+        </th>
+      }
+
+      @if(showActions){
+        <th>Acciones</th>
+      }
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr>
+      @for (col of columns; track col.field) {
+        <td>
+          {{ rowData[col.field] }}
+        </td>
+      }
+
+      @if(showActions && actionTemplate){
+        <td>
+          <ng-container
+            [ngTemplateOutlet]="actionTemplate"
+            [ngTemplateOutletContext]="{ $implicit: rowData }">
+          </ng-container>
+        </td>
+      }
+    </tr>
+  </ng-template>
+</p-table>

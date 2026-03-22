@@ -13,7 +13,13 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve"
+    "module": "preserve",
+    "baseUrl": "./",
+    "paths": {
+      "@shared/atoms": ["src/app/shared/components/atoms"],
+      "@shared/molecules": ["src/app/shared/components/molecules"],
+      "@shared/organisms": ["src/app/shared/components/organisms"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

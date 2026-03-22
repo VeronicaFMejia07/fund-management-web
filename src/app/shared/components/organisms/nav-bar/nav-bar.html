@@ -1,0 +1,16 @@
+<p-menubar #navRef [model]="items" class="nav-bar">
+  <ng-template pTemplate="start">
+    <div class="nav-bar__info">
+      <app-atom-icon class="nav-bar__info-icon" [iconClass]="'pi pi-wallet'" />
+      <app-atom-label class="nav-bar__info-label" [text]="'BTG Inversiones'" />
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="item" let-item>
+    <app-molecule-nav-link [label]="item.label" [link]="item.routerLink" />
+  </ng-template>
+
+  <ng-template pTemplate="end">
+    <app-atom-label class="nav-bar__label" [text]="'Bienvenida, Verónica'" />
+  </ng-template>
+</p-menubar>

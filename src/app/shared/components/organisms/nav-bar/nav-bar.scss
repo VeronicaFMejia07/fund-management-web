@@ -1,0 +1,45 @@
+@use 'mixins' as m;
+
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.25);
+  gap: 0.5rem;
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-color);
+
+    &-icon {
+      font-size: 1rem;
+
+      @include m.responsive('md') {
+        font-size: 1.25rem;
+      }
+    }
+
+    &-label {
+      font-weight: bolder;
+      font-size: 0.8rem;
+
+      @include m.responsive('md') {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  &__label {
+    font-weight: bolder;
+    font-size: 0.8rem;
+    
+    @include m.responsive('md') {
+      font-size: 1rem;
+    }
+  }
+}

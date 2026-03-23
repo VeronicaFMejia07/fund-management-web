@@ -1,6 +1,6 @@
 {
   "account": {
-    "balance": 400000
+    "balance": 500000
   },
   "funds": [
     {
@@ -34,86 +34,6 @@
       "category": "FPV"
     }
   ],
-  "history": [
-    {
-      "fundID": "1",
-      "name": "FPV_BTG_PACTUAL_RECAUDADORA",
-      "min_amount": 75000,
-      "category": "FPV",
-      "notificationMethod": "Email (Correo Electrónico)",
-      "date": "2026-03-23T06:44:32.815Z",
-      "type": "Suscripción",
-      "id": 1
-    },
-    {
-      "fundID": "4",
-      "name": "FDO-ACCIONES",
-      "min_amount": 250000,
-      "category": "FIC",
-      "notificationMethod": "SMS (Mensaje de Texto)",
-      "date": "2026-03-23T06:46:15.353Z",
-      "type": "Suscripción",
-      "id": 2
-    },
-    {
-      "fundID": "1",
-      "name": "FPV_BTG_PACTUAL_RECAUDADORA",
-      "min_amount": 75000,
-      "category": "FPV",
-      "notificationMethod": "Email (Correo Electrónico)",
-      "date": "2026-03-23T06:52:59.552Z",
-      "type": "Suscripción",
-      "id": 3
-    },
-    {
-      "fundID": "1",
-      "name": "FPV_BTG_PACTUAL_RECAUDADORA",
-      "min_amount": 75000,
-      "category": "FPV",
-      "notificationMethod": "Email (Correo Electrónico)",
-      "date": "2026-03-23T06:53:05.222Z",
-      "type": "Cancelación",
-      "id": 4
-    },
-    {
-      "fundID": "3",
-      "name": "DEUDAPRIVADA",
-      "min_amount": 50000,
-      "category": "FIC",
-      "notificationMethod": "SMS (Mensaje de Texto)",
-      "date": "2026-03-23T07:05:43.885Z",
-      "type": "Suscripción",
-      "id": 5
-    },
-    {
-      "fundID": "4",
-      "name": "FDO-ACCIONES",
-      "min_amount": 250000,
-      "category": "FIC",
-      "notificationMethod": "Email (Correo Electrónico)",
-      "date": "2026-03-23T07:07:06.456Z",
-      "type": "Suscripción",
-      "id": 6
-    }
-  ],
-  "subscriptions": [
-    {
-      "fundID": "3",
-      "name": "DEUDAPRIVADA",
-      "min_amount": 50000,
-      "category": "FIC",
-      "notificationMethod": "SMS (Mensaje de Texto)",
-      "date": "2026-03-23T07:05:43.759Z",
-      "id": 1
-    },
-    {
-      "fundID": "4",
-      "name": "FDO-ACCIONES",
-      "min_amount": 250000,
-      "category": "FIC",
-      "notificationMethod": "Email (Correo Electrónico)",
-      "date": "2026-03-23T07:07:06.336Z",
-      "id": 2
-    }
-  ]
+  "history": [],
+  "subscriptions": []
 }

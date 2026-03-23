@@ -1,4 +1,4 @@
-<p-dialog [header]="title" [modal]="true" class="modal">
+<p-dialog [header]="title" [modal]="true" class="modal" [(visible)]="visible" (onHide)="closeModal()" [draggable]="false" [resizable]="false">
   <div class="modal__content">
     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
   </div>

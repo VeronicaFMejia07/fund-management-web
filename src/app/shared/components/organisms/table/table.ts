@@ -20,7 +20,7 @@ export class TableOrganismComponent<T> {
   @Input() columns: TableColumn<T>[] = [];
   @Input() data: T[] = [];
   @Input() showActions = true;
-  @ContentChild('actions') actionTemplate?: TemplateRef<any>;
+  @ContentChild('actions') actionsTemplate?: TemplateRef<any>;
 
   public selectedRow: T | null = null;
 }

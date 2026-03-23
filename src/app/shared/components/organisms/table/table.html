@@ -17,14 +17,18 @@
     <tr>
       @for (col of columns; track col.field) {
         <td>
-          {{ rowData[col.field] }}
+          @if (col.pipe === 'currency') {
+            {{ rowData[col.field] | currency:'COP':'symbol-narrow':'1.0-0' }}
+          } @else {
+            {{ rowData[col.field] }}
+          }
         </td>
       }
 
-      @if(showActions && actionTemplate){
+      @if(showActions && actionsTemplate){
         <td>
           <ng-container
-            [ngTemplateOutlet]="actionTemplate"
+            [ngTemplateOutlet]="actionsTemplate"
             [ngTemplateOutletContext]="{ $implicit: rowData }">
           </ng-container>
         </td>

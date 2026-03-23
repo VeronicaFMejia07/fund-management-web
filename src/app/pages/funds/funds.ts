@@ -5,9 +5,11 @@ import { SelectAtomComponent, LabelAtomComponent, Options } from '@shared/atoms'
 import { ButtonIconMoleculeComponent } from '@shared/molecules';
 import { ModalOrganismComponent, TableColumn, TableOrganismComponent } from '@shared/organisms';
 import { Fund } from 'src/app/core/models';
+import { AccountService } from 'src/app/core/services/account.service';
 import { FundService } from 'src/app/core/services/fund.service';
+import { HistoryService } from 'src/app/core/services/history.service';
 import { NotificationService } from 'src/app/core/services/notifications.service';
-import { SubscriptionsService } from 'src/app/core/services/suscriptions.service';
+import { SubscriptionsService } from 'src/app/core/services/subscriptions.service';
 
 @Component({
   selector: 'app-funds',
@@ -27,16 +29,18 @@ import { SubscriptionsService } from 'src/app/core/services/suscriptions.service
 export class FundsComponent implements OnInit {
   private fundService = inject(FundService);
   private subscriptionsService = inject(SubscriptionsService);
-  private notification = inject(NotificationService);
+  private accountService = inject(AccountService);
+  private notificationService = inject(NotificationService);
+  private historyService = inject(HistoryService);
   public funds = signal<Fund[]>([]);
   public columns: TableColumn<Fund>[] = [
-    { field: 'id', header: 'ID' },
+    { field: 'fundID', header: 'ID' },
     { field: 'name', header: 'Nombre' },
     { field: 'min_amount', header: 'Monto Mínimo', pipe: 'currency' },
     { field: 'category', header: 'Categoría' },
   ];
   public isModalVisible = signal<boolean>(false);
-  public selectedFund: any = null;
+  public selectedFund: Fund | null = null;
   public currentBalance = signal<number>(500000);
   public subscriptionOptions: Options[] = [
     { name: 'Email (Correo Electrónico)', value: 'email' },
@@ -46,13 +50,16 @@ export class FundsComponent implements OnInit {
 
   ngOnInit() {
     this.getFunds();
+    this.getCurrentBalance();
   }
 
-  onSuscription(fundData: Fund) {
+  onSuscription(fundData: Fund | null) {
+    if (!fundData) return;
+    
     const saldoActual = this.currentBalance();
 
     if (saldoActual < fundData.min_amount) {
-      this.notification.showWarning(
+      this.notificationService.showWarning(
         'Saldo insuficiente para este fondo. Intenta con otro o recarga tu cuenta.',
       );
       return;
@@ -60,7 +67,7 @@ export class FundsComponent implements OnInit {
 
     // 2. Validación de Notificación
     if (!this.selectedNotificationMethod) {
-      this.notification.showWarning(
+      this.notificationService.showWarning(
         'Por favor, selecciona un método de notificación antes de continuar.',
       );
       return;
@@ -86,8 +93,8 @@ export class FundsComponent implements OnInit {
     this.selectedFund = null;
   }
 
-  onChangeNotificationMethod(event: string) {
-    this.selectedNotificationMethod = event;
+  onChangeNotificationMethod(event: Options) {
+    this.selectedNotificationMethod = event.name;
   }
 
   private getFunds() {
@@ -97,8 +104,36 @@ export class FundsComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al obtener los fondos:', error);
-        this.notification.showError(
+        this.notificationService.showError(
           'No pudimos cargar los fondos disponibles. Revisa tu conexión o intenta de nuevo más tarde.',
+        );
+      },
+    });
+  }
+
+  private getCurrentBalance() {
+    this.accountService.getCurrentBalance().subscribe({
+      next: (response) => {
+        this.currentBalance.set(response.balance);
+      },
+      error: (error) => {
+        console.error('Error al obtener el saldo actual:', error);
+        this.notificationService.showError(
+          'No pudimos obtener tu saldo actual. Revisa tu conexión o intenta de nuevo más tarde.',
+        );
+      },
+    });
+  }
+
+  private updateBalance(newBalance: number) {
+    this.accountService.updateBalance(newBalance).subscribe({
+      next: () => {
+        this.currentBalance.set(newBalance);
+      },
+      error: (error) => {
+        console.error('Error al actualizar el saldo:', error);
+        this.notificationService.showError(
+          'No pudimos actualizar tu saldo. Revisa tu conexión o intenta de nuevo más tarde.',
         );
       },
     });
@@ -107,11 +142,17 @@ export class FundsComponent implements OnInit {
   private addSubscription(fundData: Fund) {
     this.subscriptionsService.addSubscription(fundData).subscribe({
       next: (response) => {
-        this.currentBalance.update((prev) => {
-          const resultado = prev - fundData.min_amount;
-          return Math.max(0, resultado);
+        const newBalance = Math.max(0, this.currentBalance() - fundData.min_amount);
+        this.updateBalance(newBalance);
+        this.notificationService.showSuccess(`Te has suscrito exitosamente al fondo ${fundData.name}.`);
+        this.historyService.addHistory(fundData, 'Suscripción').subscribe({
+          next: () => {
+            console.log('Movimiento registrado en el historial');
+          },
+          error: (error) => {
+            console.error('Error al registrar el movimiento en el historial:', error);
+          }
         });
-        this.notification.showSuccess(`Te has suscrito exitosamente al fondo ${fundData.name}.`);
         this.selectedNotificationMethod = '';
         this.onCloseModal();
       },
@@ -121,11 +162,11 @@ export class FundsComponent implements OnInit {
         const serverErrorMessage =
           typeof errorBody === 'object' ? JSON.stringify(errorBody) : errorBody || '';
         if (serverErrorMessage && serverErrorMessage.includes('duplicate id')) {
-          this.notification.showWarning(
+          this.notificationService.showWarning(
             'Ya estás suscrito a este fondo. No puedes suscribirte dos veces al mismo fondo.',
           );
         } else {
-          this.notification.showError(
+          this.notificationService.showError(
             'No pudimos procesar tu solicitud. Inténtalo de nuevo más tarde.',
           );
         }

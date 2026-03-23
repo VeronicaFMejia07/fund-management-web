@@ -1,6 +1,6 @@
 <div class="funds">
   <app-atom-label class="funds__title" [text]="'Fondos Disponibles'" />
-  
+
   <div class="funds__balance">
     <app-atom-label class="funds__balance-label" [text]="'Saldo actual:'" />
     <app-atom-label class="funds__balance-value" [text]="(currentBalance() | currency:'COP':'symbol-narrow': '1.0-0') || '' " />
@@ -14,9 +14,9 @@
     </app-organism-table>
   </div>
 
-  <app-organism-modal 
+  <app-organism-modal
     [title]="'Nueva Suscripción'"
-    [(visible)]="isModalVisible" 
+    [(visible)]="isModalVisible"
     [contentTemplate]="contentConfirmSubscription"
     [footerTemplate]="footerConfirmSubscription">
   </app-organism-modal>
@@ -24,11 +24,13 @@
 </div>
 
 <ng-template #contentConfirmSubscription>
-  <div class="funds__subscription">
-    <app-atom-label [text]="'Para suscribirte, por favor selecciona tu método de notificación.'" />
-    <app-atom-label class="funds__subscription-label" [text]="'Método de notificación:'" />
-    <app-atom-select [options]="subscriptionOptions" [value]="selectedNotificationMethod" (valueChange)="onChangeNotificationMethod($event)" />
-  </div>
+  @if(isModalVisible()) {
+    <div class="funds__subscription">
+      <app-atom-label [text]="'Para suscribirte, por favor selecciona tu método de notificación.'" />
+      <app-atom-label class="funds__subscription-label" [text]="'Método de notificación:'" />
+      <app-atom-select [options]="subscriptionOptions" [value]="selectedNotificationMethod" (valueChange)="onChangeNotificationMethod($event)" />
+    </div>
+  }
 </ng-template>
 
 <ng-template #footerConfirmSubscription>

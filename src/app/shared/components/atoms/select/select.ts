@@ -19,13 +19,16 @@ export interface Options {
 export class SelectAtomComponent {
   @Input() options: Options[] = [];
   @Input() placeholder: string = '';
-  @Input() value: string = '';
-  @Output() valueChange = new EventEmitter<Options>();
+  @Input() value: string | null = null;
+  @Output() valueChange = new EventEmitter<Options | null>();
 
-  public selectedValue: string = "";
+  public selectedValue: string | null = null;
 
-  onValueChange(event: Options) { // Recibe el evento con el nuevo valor seleccionado
-    this.selectedValue = event.value;
-    this.valueChange.emit(event);
+  onValueChange(event: Options | null) {
+    // Busca la opción seleccionada en el array de opciones utilizando el valor del evento
+    const selectedOption = this.options.find(opt => opt.value === event?.value) || null;
+    if (selectedOption) {
+      this.valueChange.emit(selectedOption);
+    }
   }
 }

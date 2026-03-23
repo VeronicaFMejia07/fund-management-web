@@ -63,7 +63,7 @@ export class SubscriptionsComponent implements OnInit {
           };
           this.historyService.addHistory(historyData, 'Cancelación').subscribe({
             next: () => {
-              console.log('Movimiento registrado en el historial');
+              console.info('Movimiento registrado en el historial');
             },
             error: (error) => {
               console.error('Error al registrar el movimiento en el historial:', error);

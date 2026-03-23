@@ -39,7 +39,7 @@ export class FundsComponent implements OnInit {
     { field: 'category', header: 'Categoría' },
   ];
   public selectedFund: Fund | null = null;
-  public selectedNotificationMethod: string = '';
+  public selectedNotificationMethod: string | null = null;
   public funds = signal<Fund[]>([]);
   public isModalVisible = signal<boolean>(false);
   public currentBalance = signal<number>(500000);
@@ -74,9 +74,11 @@ export class FundsComponent implements OnInit {
       return;
     }
 
+    // 3. Preparar los datos para la suscripción, incluyendo la conversión del valor seleccionado del método de notificación a su etiqueta correspondiente.
+    const methodLabel = this.subscriptionOptions.find(opt => opt.value === this.selectedNotificationMethod)?.name;
     const body = {
       ...fundData,
-      notificationMethod: this.selectedNotificationMethod,
+      notificationMethod: methodLabel!,
       date: new Date().toISOString(),
     };
 
@@ -84,8 +86,8 @@ export class FundsComponent implements OnInit {
   }
 
   onOpenModal(fundData: Fund) {
+    this.selectedNotificationMethod = null;
     this.selectedFund = fundData;
-    this.selectedNotificationMethod = '';
     this.isModalVisible.set(true);
   }
 
@@ -94,8 +96,9 @@ export class FundsComponent implements OnInit {
     this.selectedFund = null;
   }
 
-  onChangeNotificationMethod(event: Options) {
-    this.selectedNotificationMethod = event.name;
+  onChangeNotificationMethod(event: Options | null) {
+    if(!event) return;
+    this.selectedNotificationMethod = event.value;
   }
 
   private getFunds() {
@@ -152,13 +155,13 @@ export class FundsComponent implements OnInit {
         // Registrar el movimiento en el historial de suscripciones.
         this.historyService.addHistory(fundData, 'Suscripción').subscribe({
           next: () => {
-            console.log('Movimiento registrado en el historial');
+            console.info('Movimiento registrado en el historial');
           },
           error: (error) => {
             console.error('Error al registrar el movimiento en el historial:', error);
           }
         });
-        this.selectedNotificationMethod = '';
+        this.selectedNotificationMethod = null;
         this.onCloseModal();
       },
       error: (error: HttpErrorResponse) => {

@@ -31,7 +31,7 @@ export class SubscriptionsComponent implements OnInit {
     { field: 'date', header: 'Fecha de Suscripción', pipe: 'date' },
   ];
   public selectedSubscription: Subscriptions | null = null;
-  public currentBalance = signal<number>(500000);
+  public currentBalance = signal<number>(0);
   public subscriptions = signal<SubscriptionTable[]>([]);
 
   ngOnInit(): void {

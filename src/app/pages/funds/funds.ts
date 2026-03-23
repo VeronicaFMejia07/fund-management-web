@@ -42,7 +42,7 @@ export class FundsComponent implements OnInit {
   public selectedNotificationMethod: string | null = null;
   public funds = signal<Fund[]>([]);
   public isModalVisible = signal<boolean>(false);
-  public currentBalance = signal<number>(500000);
+  public currentBalance = signal<number>(0);
   public subscriptionOptions: Options[] = [
     { name: 'Email (Correo Electrónico)', value: 'email' },
     { name: 'SMS (Mensaje de Texto)', value: 'sms' },

@@ -30,7 +30,7 @@ export class HistoryComponent implements OnInit {
     { field: 'notificationMethod', header: 'Método de Notificación' },
   ];
   public history = signal<HistoryTable[]>([]);
-  public currentBalance = signal<number>(500000);
+  public currentBalance = signal<number>(0);
 
   ngOnInit(): void {
     this.getCurrentBalance();

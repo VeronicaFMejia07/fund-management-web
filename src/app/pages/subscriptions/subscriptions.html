@@ -1,0 +1,16 @@
+<div class="subscriptions">
+  <app-atom-label class="subscriptions__title" [text]="'Mis Suscripciones'" />
+  
+  <div class="subscriptions__balance">
+    <app-atom-label class="subscriptions__balance-label" [text]="'Saldo actual:'" />
+    <app-atom-label class="subscriptions__balance-value" [text]="(currentBalance() | currency:'COP':'symbol-narrow': '1.0-0') || '' " />
+  </div>
+
+  <div class="subscriptions__container-table">
+    <app-organism-table [columns]="columns" [data]="subscriptions()">
+        <ng-template #actions let-rowData>
+          <app-molecule-button-icon [label]="'Cancelar'" [iconClass]="'pi pi-trash'" (onClick)="onOpenModal(rowData)" />
+        </ng-template>
+    </app-organism-table>
+  </div>
+</div>

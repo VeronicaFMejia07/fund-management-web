@@ -1,0 +1,57 @@
+@use "mixins" as m;
+
+.subscriptions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem;
+
+  &__title {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    font-weight: bolder;
+    align-self: flex-start;
+
+    @include m.responsive('lg') {
+      font-size: 2rem;
+    }
+  }
+
+  &__balance {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    text-align: center;
+    align-self: flex-end;
+    border: 1px solid #faeeda;
+    background-color: #faeeda;
+    padding: 0.5rem;
+    border-radius: 3px;
+
+    &-label {
+      font-size: 1rem;
+      font-weight: bold;
+      color: var(--text-color);
+
+      @include m.responsive('lg') {
+        font-size: 1.25rem;
+      }
+    }
+
+    &-value {
+      font-size: 1rem;
+      font-weight: bolder;
+      color: #000;
+
+      @include m.responsive('lg') {
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  &__container-table {
+    width: 100%;
+  }
+}

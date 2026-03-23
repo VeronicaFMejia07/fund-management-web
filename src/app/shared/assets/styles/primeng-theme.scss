@@ -1,0 +1,172 @@
+@use "mixins" as m;
+
+/* Estilos personalizados para el tema de PrimeNG */
+
+/* Personalización de listas desplegables (Select) */
+body .p-select {
+  border: 2px solid var(--primary-color);
+  border-radius: 3px;
+  padding: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+body .p-select:not(.p-disabled):hover {
+  border-color: var(--primary-color);
+  transition: all 0.3s ease;
+}
+
+body .p-select:not(.p-disabled).p-focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(64, 96, 147, 0.2);
+}
+
+body .p-select-dropdown {
+  color: var(--primary-color);
+  font-weight: bolder;
+}
+
+body .p-select-option {
+  padding: 0.3rem;
+}
+
+body .p-select-list {
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  margin-top: 4px;
+}
+
+/* Personalización de la barra de navegación (Menubar) */
+body .p-menubar-root-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  @include m.responsive('p-menu') {
+    flex-grow: 1;
+    gap: 1rem;
+  }
+}
+
+body .p-menubar-item-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  font-size: 0.8rem;
+
+  @include m.responsive('md') {
+    font-size: 1rem;
+  }
+}
+
+body .p-menubar-item-label:hover{
+  color: #406093;
+  transition: all 0.3s ease;
+}
+
+
+body .p-menubar .p-icon {
+    width: 0.8rem;
+
+    @include m.responsive('md') {
+      width: 1.2rem;
+    }
+}
+
+
+body .p-menubar-mobile .p-menubar-button {
+  order: 0;
+
+  @include m.responsive('p-menu') {
+    order: unset;
+  }
+}
+
+body .p-menubar-start {
+  order: 1;
+  flex-grow: 1;
+
+  @include m.responsive('p-menu') {
+    order: unset;
+    flex-grow: 0;
+  }
+}
+
+body .p-menubar-end {
+  order: 2;
+
+  @include m.responsive('p-menu') {
+    order: unset;
+  }
+}
+
+
+body .p-menubar-mobile-active .p-menubar-root-list {
+  background-color: var(--primary-color);
+  padding: 1.5rem 1rem;
+  border: none;
+  border-top: 2px solid #E5E1DA;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 0 0 15px 15px;
+  animation: slideDown 0.4s ease-out;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body .p-menubar-root-list > .p-menubar-item > .p-menubar-item-content {
+  display: flex;
+  justify-content: left;
+}
+
+body .p-menubar-item-link-active {
+  border-bottom: 1px solid #1D546D;
+}
+
+/* Personalización de la tabla (Table) */
+body .p-datatable-table {
+  width: 80%;
+  margin: 0 auto;
+}
+
+body .p-datatable-thead {
+  background-color: var(--primary-color);
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+body .p-datatable-thead > tr > th {
+  padding: 0.5rem;
+  border-color: var(--primary-color);
+}
+
+body .p-datatable-thead > tr > th:first-child {
+  border-top-left-radius: 3px;
+}
+
+body .p-datatable-thead > tr > th:last-child {
+  border-top-right-radius: 3px;
+}
+
+body .p-datatable-tbody > tr > td {
+  padding: 0.5rem;
+  border: 1px solid #E5E1DA;
+}

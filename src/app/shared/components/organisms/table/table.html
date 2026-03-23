@@ -1,4 +1,4 @@
-<p-table [value]="data" [columns]="columns" [(selection)]="selectedRow" dataKey="id">
+<p-table [value]="data" [columns]="columns" [(selection)]="selectedRow" dataKey="id" class="table">
   <ng-template pTemplate="header" let-columns>
     <tr>
       @for (col of columns; track col.field) {
@@ -19,6 +19,8 @@
         <td>
           @if (col.pipe === 'currency') {
             {{ rowData[col.field] | currency:'COP':'symbol-narrow':'1.0-0' }}
+          } @else if (col.pipe === 'date') {
+            {{ rowData[col.field] | date:'shortDate' }}
           } @else {
             {{ rowData[col.field] }}
           }
@@ -33,6 +35,16 @@
           </ng-container>
         </td>
       }
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage" let-columns>
+    <tr>
+      <td [attr.colspan]="columns.length + (showActions ? 1 : 0)">
+        <div class="table__empty-message">
+          <app-atom-label [text]="'No se encontraron registros.'" />
+        </div>
+      </td>
     </tr>
   </ng-template>
 </p-table>

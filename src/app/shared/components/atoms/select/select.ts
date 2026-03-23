@@ -20,12 +20,12 @@ export class SelectAtomComponent {
   @Input() options: Options[] = [];
   @Input() placeholder: string = '';
   @Input() value: string = '';
-  @Output() valueChange = new EventEmitter<string>();
+  @Output() valueChange = new EventEmitter<Options>();
 
   public selectedValue: string = "";
 
-  onValueChange(value: string) {
-    this.selectedValue = value;
-    this.valueChange.emit(value);
+  onValueChange(event: Options) {
+    this.selectedValue = event.value;
+    this.valueChange.emit(event);
   }
 }

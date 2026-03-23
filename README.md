@@ -1,59 +1,72 @@
-# FundManagementWeb
+# 🏦 Fund Management Web - BTG Inversiones
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.21.
+Esta es una aplicación web moderna diseñada para la gestión de fondos de inversión. Permite a los usuarios suscribirse y cancelar fondos, manteniendo un historial detallado de movimientos y un control de saldo en tiempo real.
 
-## Development server
+## 🚀 Instrucciones de Ejecución
 
-To start a local development server, run:
+Sigue estos pasos para poner en marcha el proyecto en tu máquina local:
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 1. Clonar el repositorio
+Repositorio: https://github.com/VeronicaFMejia07/fund-management-web
 
 ```bash
-ng generate component component-name
+git clone https://github.com/VeronicaFMejia07/fund-management-web
+cd fund-management-web
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
+### 2. Instalar dependencias
+Asegúrate de tener Node.js instalado (v20.x o v22.x (LTS)). Luego ejecuta:
+```bash 
+npm install
 ```
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
+### 3. Ejecutar el Servidor de Datos (Backend Mock)
+Este proyecto utiliza **json-server** para simular una API REST. En una terminal independiente, ejecuta:
+```bash 
+npm run api
 ```
+#### Detalles del Servidor:
+- **Comando interno:** `json-server --watch db.json --port 3000`
+- **URL base:** `http://localhost:3000`
+- **Archivo insumo de datos:** `db.json` (ubicado en la raíz del proyecto).
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+### 4. Ejecutar la Aplicación (Frontend)
+En otra terminal, inicia el servidor de desarrollo de Angular:
+```bash 
+npm start
 ```
+La aplicación estará disponible en `http://localhost:4200`.
 
-## Running end-to-end tests
 
-For end-to-end (e2e) testing, run:
+## 🧩 Tecnologías y Dependencias
+| Tecnología | Propósito / Uso en el Proyecto |
+| :--- | :--- |
+| **Angular 20** | Framework principal utilizando Standalone Components y Signals para la gestión de estado. |
+| **PrimeNG** | Librería de componentes UI para elementos como Dropdowns, Modales y Tablas. |
+| **PrimeIcons** | Librería de iconos vectoriales oficial de PrimeNG para elementos visuales y navegación. |
+| **RxJS** | Para el manejo de flujos de datos asíncronos y peticiones HTTP. |
+| **JSON Server** | Mock backend para persistencia de datos (API REST con soporte para GET, POST, PUT y DELETE). | 
+| **SweetAlert2**  | Biblioteca para mostrar alertas y diálogos de confirmación animados y personalizados. |
+| **SASS (SCSS)** | Preprocesador para estilos avanzados, variables y anidación bajo metodología BEM. |
 
-```bash
-ng e2e
-```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 🎨 Arquitectura y Metodología de Diseño
+### Enfoque Mobile First
+Diseñado bajo la filosofía Mobile First, priorizando la experiencia en dispositivos móviles y escalando progresivamente hacia pantallas de escritorio mediante Media Queries optimizadas a través de mixins de SCSS.
 
-## Additional Resources
+### Metodologia BEM (Block, Element, Modifier)
+Para el desarrollo de los estilos en SASS (SCSS), se implementó la metodología BEM, lo que permite una estructura de clases clara y jerárquica.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Diseño Atómico (Atomic Design)
+El proyecto organiza sus componentes siguiendo principios de diseño atómico (Atoms, Molecules, Organisms), separando la lógica de UI pura de la lógica de negocio.
+
+## 💡 Funcionalidades Clave
+- **Validación de Saldo:** El sistema impide suscripciones si el monto mínimo supera el saldo disponible.
+
+- **Historial de transacciones:** Cada acción (Suscripción/Cancelación) genera un registro único con fecha y método de notificación.
+
+- **Estado Reactivo:** Actualización instantánea del saldo y listas de fondos mediante servicios compartidos y señales.
+
+- **Sistema de Notificaciones:** Integración con SweetAlert2 para proporcionar feedback visual inmediato sobre el éxito o error de las acciones del usuario.
+

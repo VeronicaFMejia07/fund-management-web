@@ -1,0 +1,13 @@
+<div class="history">
+  <app-atom-label class="history__title" [text]="'Mi Historial de Transacciones'" />
+  
+  <div class="history__balance">
+    <app-atom-label class="history__balance-label" [text]="'Saldo actual:'" />
+    <app-atom-label class="history__balance-value" [text]="(currentBalance() | currency:'COP':'symbol-narrow': '1.0-0') || '' " />
+  </div>
+
+  <div class="history__container-table">
+    <app-organism-table [columns]="columns" [data]="history()" [showActions]="false">
+    </app-organism-table>
+  </div>
+</div>

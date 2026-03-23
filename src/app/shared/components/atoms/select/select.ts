@@ -19,6 +19,7 @@ export interface Options {
 export class SelectAtomComponent {
   @Input() options: Options[] = [];
   @Input() placeholder: string = '';
+  @Input() value: string = '';
   @Output() valueChange = new EventEmitter<string>();
 
   public selectedValue: string = "";

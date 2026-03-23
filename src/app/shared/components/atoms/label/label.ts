@@ -9,5 +9,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LabelAtomComponent {
-  @Input() text: string = '';
+  @Input() text: string | number = '';
 }

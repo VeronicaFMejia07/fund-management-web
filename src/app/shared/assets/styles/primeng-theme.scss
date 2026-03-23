@@ -143,7 +143,7 @@ body .p-menubar-item-link-active {
 
 /* Personalización de la tabla (Table) */
 body .p-datatable-table {
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -169,4 +169,33 @@ body .p-datatable-thead > tr > th:last-child {
 body .p-datatable-tbody > tr > td {
   padding: 0.5rem;
   border: 1px solid #E5E1DA;
+}
+
+/* Personalización de los diálogos (Dialog) */
+body .p-dialog {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #f8f9fa;
+}
+
+body .p-dialog-header {
+  padding: 1rem;
+  border-bottom: 1px solid #E5E1DA;
+}
+
+body .p-dialog-title {
+  color: var(--text-color);
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Personalización de los mensajes de notificación (Toast) */
+body .p-toast-message-text {
+  background-color: var(--background-light);
+}
+
+body .p-toast-message-content {
+    background-color: var(--background-light);
+
 }

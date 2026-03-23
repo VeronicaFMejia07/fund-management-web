@@ -13,18 +13,5 @@ import { NavLinkMoleculeComponent } from "../../molecules/nav-link/nav-link";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavBarOrganismComponent {
-  @Input() items: MenuItem[] = [
-    {
-      label: 'Fondos',
-      routerLink: '/funds',
-    },
-    {
-      label: 'Mis suscripciones',
-      routerLink: '/subscriptions',
-    },
-    {
-      label: 'Historial',
-      routerLink: '/history',
-    },
-  ];
+  @Input() items: MenuItem[] = [];
 }

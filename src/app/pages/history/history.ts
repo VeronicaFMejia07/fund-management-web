@@ -19,9 +19,8 @@ export class HistoryComponent implements OnInit {
   private accountService = inject(AccountService);
   private historyService = inject(HistoryService);
   private notificationService = inject(NotificationService);
-  public history = signal<HistoryTable[]>([]);
 
-  public columns: TableColumn<HistoryTable>[] = [
+  public columns: TableColumn<HistoryTable>[] = [ // Definición de las columnas para la tabla de historial, incluyendo el formato de moneda para el monto mínimo.
     { field: 'fundID', header: 'ID' },
     { field: 'type', header: 'Tipo Transacción' },
     { field: 'date', header: 'Fecha', pipe: 'date' },
@@ -30,8 +29,9 @@ export class HistoryComponent implements OnInit {
     { field: 'category', header: 'Categoría' },
     { field: 'notificationMethod', header: 'Método de Notificación' },
   ];
+  public history = signal<HistoryTable[]>([]);
   public currentBalance = signal<number>(500000);
-  
+
   ngOnInit(): void {
     this.getCurrentBalance();
     this.getHistory();
@@ -41,7 +41,7 @@ export class HistoryComponent implements OnInit {
   private getCurrentBalance() {
     this.accountService.getCurrentBalance().subscribe({
       next: (response) => {
-        this.currentBalance.set(response.balance);
+        this.currentBalance.set(response.balance); // Establecer el saldo actual obtenido del servidor en la señal.
       },
       error: (error) => {
         console.error('Error al obtener el saldo actual:', error);
@@ -55,6 +55,7 @@ export class HistoryComponent implements OnInit {
   private getHistory() {
     this.historyService.getHistory().subscribe({
       next: (response) => {
+        // Ordenar el historial por fecha de manera descendente (de más reciente a más antiguo) antes de establecerlo en la señal.
         let transformedData = response.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         this.history.set(transformedData);
       },

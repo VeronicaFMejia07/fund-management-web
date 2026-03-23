@@ -1,5 +1,6 @@
 @use 'sass:map';
 
+// Definición de breakpoints para diseño responsive
 $breakpoints: (
   'sm': 576px,  // Tablets pequeñas / Celulares grandes
   'md': 768px,  // Tablets

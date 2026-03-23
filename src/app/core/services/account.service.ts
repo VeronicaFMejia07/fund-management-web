@@ -6,9 +6,10 @@ import { catchError, Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 
+// Servicio para manejar las operaciones relacionadas con la cuenta bancaria, como obtener el saldo actual y actualizarlo.
 export class AccountService {
   private http = inject(HttpClient);
-  private url = 'http://localhost:3000/account'; 
+  private url = 'http://localhost:3000/account';
 
   getCurrentBalance(): Observable<{balance: number}> {
     return this.http.get<{balance: number}>(this.url).pipe(

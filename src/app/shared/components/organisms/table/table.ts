@@ -4,9 +4,9 @@ import { CommonModule } from '@angular/common';
 import { LabelAtomComponent } from "@shared/atoms";
 
 export interface TableColumn<T> {
-  field: keyof T | string;
-  header: string;
-  pipe?: 'currency' | 'date' | 'number';
+  field: keyof T | string; // El campo del objeto que se mostrará en esta columna
+  header: string; // El texto que se mostrará en el encabezado de la columna
+  pipe?: 'currency' | 'date' | 'number'; // Opcional: el tipo de pipe a aplicar al valor de esta columna
 }
 
 @Component({
@@ -21,7 +21,7 @@ export class TableOrganismComponent<T> {
   @Input() columns: TableColumn<T>[] = [];
   @Input() data: T[] = [];
   @Input() showActions = true;
-  @ContentChild('actions') actionsTemplate?: TemplateRef<any>;
+  @ContentChild('actions') actionsTemplate?: TemplateRef<any>; // Permite pasar una plantilla personalizada para las acciones de cada fila
 
   public selectedRow: T | null = null;
 }

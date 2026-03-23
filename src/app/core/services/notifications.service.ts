@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 
 @Injectable({ providedIn: 'root' })
 
+// Servicio para manejar las operaciones relacionadas con las notificaciones, como mostrar mensajes de éxito, error, advertencia y preguntas al usuario.
 export class NotificationService {
 
   showError(message: string) {
@@ -11,7 +12,7 @@ export class NotificationService {
       text: message,
       icon: 'error',
       confirmButtonText: 'Aceptar',
-      confirmButtonColor: '#2c3e50', 
+      confirmButtonColor: '#2c3e50',
       heightAuto: false
     });
   }
@@ -45,7 +46,7 @@ export class NotificationService {
       title: '¿Estás seguro?',
       text: message,
       icon: 'question',
-      showCancelButton: true, 
+      showCancelButton: true,
       confirmButtonText: 'Sí',
       cancelButtonText: 'No',
       confirmButtonColor: '#2c3e50',

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { IconAtomComponent, LabelAtomComponent } from "@shared/atoms";
-import { NavLinkMoleculeComponent } from "../../molecules/nav-link/nav-link";
+import { NavLinkMoleculeComponent } from '@shared/molecules';
 
 @Component({
   selector: 'app-organism-nav-bar',
@@ -13,5 +13,5 @@ import { NavLinkMoleculeComponent } from "../../molecules/nav-link/nav-link";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavBarOrganismComponent {
-  @Input() items: MenuItem[] = [];
+  @Input() items: MenuItem[] = []; // Recibe los elementos del menú desde el componente padre
 }

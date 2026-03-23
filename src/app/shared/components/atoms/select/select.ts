@@ -24,7 +24,7 @@ export class SelectAtomComponent {
 
   public selectedValue: string = "";
 
-  onValueChange(event: Options) {
+  onValueChange(event: Options) { // Recibe el evento con el nuevo valor seleccionado
     this.selectedValue = event.value;
     this.valueChange.emit(event);
   }

@@ -13,8 +13,8 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
-    provideAnimationsAsync(),
-    { provide: LOCALE_ID, useValue: 'es-CO' }
+    provideHttpClient(), // Proporciona el servicio HttpClient para toda la aplicación
+    provideAnimationsAsync(), // Proporciona soporte para animaciones de forma asíncrona
+    { provide: LOCALE_ID, useValue: 'es-CO' } // Establecemos el locale predeterminado para toda la aplicación
   ]
 };

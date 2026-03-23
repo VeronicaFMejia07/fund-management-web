@@ -32,21 +32,21 @@ export class FundsComponent implements OnInit {
   private accountService = inject(AccountService);
   private notificationService = inject(NotificationService);
   private historyService = inject(HistoryService);
-  public funds = signal<Fund[]>([]);
-  public columns: TableColumn<Fund>[] = [
+  public columns: TableColumn<Fund>[] = [ // Definición de las columnas para la tabla de fondos, incluyendo el formato de moneda para el monto mínimo.
     { field: 'fundID', header: 'ID' },
     { field: 'name', header: 'Nombre' },
     { field: 'min_amount', header: 'Monto Mínimo', pipe: 'currency' },
     { field: 'category', header: 'Categoría' },
   ];
-  public isModalVisible = signal<boolean>(false);
   public selectedFund: Fund | null = null;
+  public selectedNotificationMethod: string = '';
+  public funds = signal<Fund[]>([]);
+  public isModalVisible = signal<boolean>(false);
   public currentBalance = signal<number>(500000);
   public subscriptionOptions: Options[] = [
     { name: 'Email (Correo Electrónico)', value: 'email' },
     { name: 'SMS (Mensaje de Texto)', value: 'sms' },
   ];
-  public selectedNotificationMethod: string = '';
 
   ngOnInit() {
     this.getFunds();
@@ -55,9 +55,10 @@ export class FundsComponent implements OnInit {
 
   onSuscription(fundData: Fund | null) {
     if (!fundData) return;
-    
+
     const saldoActual = this.currentBalance();
 
+    // 1. Validación del saldo actual.
     if (saldoActual < fundData.min_amount) {
       this.notificationService.showWarning(
         'Saldo insuficiente para este fondo. Intenta con otro o recarga tu cuenta.',
@@ -65,7 +66,7 @@ export class FundsComponent implements OnInit {
       return;
     }
 
-    // 2. Validación de Notificación
+    // 2. Validación del campo de método de notificación.
     if (!this.selectedNotificationMethod) {
       this.notificationService.showWarning(
         'Por favor, selecciona un método de notificación antes de continuar.',
@@ -142,9 +143,13 @@ export class FundsComponent implements OnInit {
   private addSubscription(fundData: Fund) {
     this.subscriptionsService.addSubscription(fundData).subscribe({
       next: (response) => {
+        // Actualizar el saldo restando el monto mínimo del fondo al saldo actual.
         const newBalance = Math.max(0, this.currentBalance() - fundData.min_amount);
         this.updateBalance(newBalance);
+
         this.notificationService.showSuccess(`Te has suscrito exitosamente al fondo ${fundData.name}.`);
+
+        // Registrar el movimiento en el historial de suscripciones.
         this.historyService.addHistory(fundData, 'Suscripción').subscribe({
           next: () => {
             console.log('Movimiento registrado en el historial');
@@ -158,18 +163,10 @@ export class FundsComponent implements OnInit {
       },
       error: (error: HttpErrorResponse) => {
         this.onCloseModal();
-        const errorBody = error?.error;
-        const serverErrorMessage =
-          typeof errorBody === 'object' ? JSON.stringify(errorBody) : errorBody || '';
-        if (serverErrorMessage && serverErrorMessage.includes('duplicate id')) {
-          this.notificationService.showWarning(
-            'Ya estás suscrito a este fondo. No puedes suscribirte dos veces al mismo fondo.',
-          );
-        } else {
-          this.notificationService.showError(
-            'No pudimos procesar tu solicitud. Inténtalo de nuevo más tarde.',
-          );
-        }
+        console.error('Error al obtener el historial:', error);
+        this.notificationService.showError(
+          'No pudimos procesar tu solicitud. Inténtalo de nuevo más tarde.',
+        );
       },
     });
   }

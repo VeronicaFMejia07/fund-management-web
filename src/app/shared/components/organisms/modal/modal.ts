@@ -12,11 +12,11 @@ import { DialogModule } from 'primeng/dialog';
 })
 export class ModalOrganismComponent {
   @Input() title: string = '';
-  @Input() contentTemplate?: TemplateRef<any>;
-  @Input() footerTemplate?: TemplateRef<any>;
-  @Input() visible: boolean = false; 
+  @Input() contentTemplate?: TemplateRef<any>; // Permite pasar una plantilla personalizada para el contenido del modal
+  @Input() footerTemplate?: TemplateRef<any>; // Permite pasar una plantilla personalizada para el footer del modal
+  @Input() visible: boolean = false; // Controla la visibilidad del modal
 
-  @Output() visibleChange = new EventEmitter<boolean>();
+  @Output() visibleChange = new EventEmitter<boolean>(); // Emite cambios en la visibilidad del modal al componente padre
 
   closeModal() {
     this.visible = false;

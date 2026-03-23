@@ -7,9 +7,10 @@ import { Fund } from '../models';
   providedIn: 'root'
 })
 
+// Servicio para manejar las operaciones relacionadas con los fondos, como obtener la lista de fondos disponibles.
 export class FundService {
   private http = inject(HttpClient);
-  private url = 'http://localhost:3000/funds'; 
+  private url = 'http://localhost:3000/funds';
 
   getFunds(): Observable<Fund[]> {
     return this.http.get<Fund[]>(this.url).pipe(

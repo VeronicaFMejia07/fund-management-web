@@ -17,12 +17,11 @@ import { SubscriptionsService } from 'src/app/core/services/subscriptions.servic
   styleUrl: './subscriptions.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SubscriptionsComponent implements OnInit { 
+export class SubscriptionsComponent implements OnInit {
   private accountService = inject(AccountService);
   private subscriptionsService = inject(SubscriptionsService);
   private notificationService = inject(NotificationService);
   private historyService = inject(HistoryService);
-  public subscriptions = signal<SubscriptionTable[]>([]);
   public columns: TableColumn<SubscriptionTable>[] = [
     { field: 'fundID', header: 'ID' },
     { field: 'name', header: 'Nombre' },
@@ -33,6 +32,7 @@ export class SubscriptionsComponent implements OnInit {
   ];
   public selectedSubscription: Subscriptions | null = null;
   public currentBalance = signal<number>(500000);
+  public subscriptions = signal<SubscriptionTable[]>([]);
 
   ngOnInit(): void {
     this.getSubscriptions();
@@ -49,8 +49,12 @@ export class SubscriptionsComponent implements OnInit {
         if (subscription.id) {
           this.deleteSubscription(subscription.id);
           this.notificationService.showSuccess(`Has cancelado tu suscripción a ${subscription.name}.`);
+
+          // Actualizar el saldo actual sumando el monto mínimo del fondo cancelado, asegurándose de que el saldo no sea negativo.
           const newBalance = Math.max(0, this.currentBalance() + subscription.min_amount);
           this.updateBalance(newBalance);
+
+          // Registrar el movimiento de cancelación en el historial de suscripciones.
           const { id, ...dataWithoutId } = subscription;
           const historyData = {
             ...dataWithoutId,
@@ -73,7 +77,7 @@ export class SubscriptionsComponent implements OnInit {
   private getCurrentBalance() {
     this.accountService.getCurrentBalance().subscribe({
       next: (response) => {
-        this.currentBalance.set(response.balance);
+        this.currentBalance.set(response.balance); // Establecer el saldo actual obtenido del servidor en la señal.
       },
       error: (error) => {
         console.error('Error al obtener el saldo actual:', error);
@@ -87,7 +91,9 @@ export class SubscriptionsComponent implements OnInit {
   private getSubscriptions() {
     this.subscriptionsService.getSubscriptions().subscribe({
       next: (data) => {
-        this.subscriptions.set(data);
+        // Ordenar las suscripciones por fecha de manera descendente (de más reciente a más antiguo) antes de establecerlas en la señal.
+        let transformedData = data.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        this.subscriptions.set(transformedData);
       },
       error: (error) => {
         console.error('Error al obtener suscripciones:', error);
@@ -122,6 +128,6 @@ export class SubscriptionsComponent implements OnInit {
           'No pudimos cancelar tu suscripción. Revisa tu conexión o intenta de nuevo más tarde.',
         );
       },
-    }); 
+    });
   }
 }

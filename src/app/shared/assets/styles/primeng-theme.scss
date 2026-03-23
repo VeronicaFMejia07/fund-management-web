@@ -73,11 +73,11 @@ body .p-menubar-item-label:hover{
 
 
 body .p-menubar .p-icon {
-    width: 0.8rem;
+  width: 0.8rem;
 
-    @include m.responsive('md') {
-      width: 1.2rem;
-    }
+  @include m.responsive('md') {
+    width: 1.2rem;
+  }
 }
 
 
@@ -188,14 +188,4 @@ body .p-dialog-title {
   color: var(--text-color);
   font-size: 1rem;
   font-weight: bold;
-}
-
-/* Personalización de los mensajes de notificación (Toast) */
-body .p-toast-message-text {
-  background-color: var(--background-light);
-}
-
-body .p-toast-message-content {
-    background-color: var(--background-light);
-
 }

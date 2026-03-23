@@ -7,9 +7,10 @@ import { Fund, Subscriptions } from '../models';
   providedIn: 'root'
 })
 
+// Servicio para manejar las operaciones relacionadas con las suscripciones, como obtener la lista de suscripciones, agregar nuevas suscripciones y eliminar suscripciones existentes.
 export class SubscriptionsService {
   private http = inject(HttpClient);
-  private url = 'http://localhost:3000/subscriptions'; 
+  private url = 'http://localhost:3000/subscriptions';
 
   getSubscriptions(): Observable<Subscriptions[]> {
     return this.http.get<Subscriptions[]>(this.url).pipe(
@@ -35,6 +36,6 @@ export class SubscriptionsService {
         console.error('Error al eliminar suscripción:', error);
         return throwError(() => error);
       })
-    );  
+    );
   }
 }

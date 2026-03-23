@@ -7,9 +7,10 @@ import { Fund, History, Subscriptions } from '../models';
   providedIn: 'root'
 })
 
+// Servicio para manejar las operaciones relacionadas con el historial de suscripciones y cancelaciones, como obtener el historial y agregar nuevas entradas al historial.
 export class HistoryService {
   private http = inject(HttpClient);
-  private url = 'http://localhost:3000/history'; 
+  private url = 'http://localhost:3000/history';
 
   getHistory(): Observable<History[]> {
     return this.http.get<History[]>(this.url).pipe(

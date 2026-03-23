@@ -1,6 +1,9 @@
-@use "./app/shared/assets/styles/primeng-theme.scss";
-@import "primeicons/primeicons.css";
+@use "./app/shared/assets/styles/primeng-theme.scss"; // Importa el tema personalizado de PrimeNG
+@import "primeicons/primeicons.css"; // Importa los íconos de PrimeIcons
 
+// Estilos globales para toda la aplicación
+
+// Reseteo de estilos básicos para asegurar consistencia entre navegadores
 * {
   box-sizing: border-box;
   margin: 0;
@@ -8,6 +11,7 @@
   font-family: Arial, sans-serif;
 }
 
+// Colores y variables globales
 :root {
   --primary-color: #AACDDC;
   --secondary-color: #1F2937;
